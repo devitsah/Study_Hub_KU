@@ -17,7 +17,7 @@ function unreachableResponse(): NoticeResponse {
 
 @Injectable({ providedIn: 'root' })
 export class NoticeService {
-  private readonly base = '/api/notices';
+private readonly base = 'https://study-hub-ku-2.onrender.com/api/notices';
 
   /**
    * Emits the notice list immediately, then again every 60 seconds.
