@@ -1,8 +1,7 @@
-```python
 """
 StudyHub Backend
 ----------------
-Flask API for the StudyHub Angular frontend.
+Flask API that powers the StudyHub Angular frontend.
 
 Endpoints
 ---------
@@ -27,9 +26,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from scraper import fetch_notices_safe, utc_now_iso
 
 
-# --------------------------------------------------------------------------
-# Logging
-# --------------------------------------------------------------------------
+# ============================================================
+# LOGGING
+# ============================================================
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,9 +38,9 @@ logging.basicConfig(
 logger = logging.getLogger("studyhub.app")
 
 
-# --------------------------------------------------------------------------
-# Paths
-# --------------------------------------------------------------------------
+# ============================================================
+# PATHS
+# ============================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -50,82 +49,83 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 ROUTINE_PATH = os.path.join(DATA_DIR, "routine.json")
 SEMESTERS_PATH = os.path.join(DATA_DIR, "semesters.json")
 
-
-# Make sure data directory exists
 os.makedirs(DATA_DIR, exist_ok=True)
 
 
-# --------------------------------------------------------------------------
-# Configuration
-# --------------------------------------------------------------------------
+# ============================================================
+# CONFIGURATION
+# ============================================================
 
 # Render provides PORT automatically.
 PORT = int(os.environ.get("PORT", 5000))
 
-# Refresh notices every 60 seconds.
+# Notice refresh interval.
 REFRESH_INTERVAL_SECONDS = int(
     os.environ.get("REFRESH_INTERVAL_SECONDS", 60)
 )
 
-# Frontend URL.
+# Angular/Netlify frontend URL.
 #
-# During development you can leave this empty.
-#
-# On Render, set:
-#
+# Example on Render:
 # FRONTEND_URL=https://your-site.netlify.app
 #
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "").strip()
 
 
-# --------------------------------------------------------------------------
-# Flask application
-# --------------------------------------------------------------------------
+# ============================================================
+# FLASK APP
+# ============================================================
 
 app = Flask(__name__)
 
 
-# --------------------------------------------------------------------------
+# ============================================================
 # CORS
-# --------------------------------------------------------------------------
+# ============================================================
 
 if FRONTEND_URL:
+
+    allowed_origins = [
+        FRONTEND_URL,
+        "http://localhost:4200",
+        "http://127.0.0.1:4200",
+    ]
+
     CORS(
         app,
         resources={
             r"/api/*": {
-                "origins": [
-                    FRONTEND_URL,
-                    "http://localhost:4200",
-                    "http://127.0.0.1:4200",
-                ]
+                "origins": allowed_origins
             }
         },
     )
 
-    logger.info("CORS enabled for frontend: %s", FRONTEND_URL)
+    logger.info(
+        "CORS enabled for frontend: %s",
+        FRONTEND_URL,
+    )
 
 else:
-    # Useful during initial deployment/testing.
-    # Once your Netlify URL is known, set FRONTEND_URL in Render.
+
+    # Used before the Netlify frontend URL is configured.
     CORS(app)
 
     logger.warning(
         "FRONTEND_URL is not configured. "
-        "CORS is currently allowing all origins."
+        "CORS is allowing all origins."
     )
 
 
-# --------------------------------------------------------------------------
-# Thread lock
-# --------------------------------------------------------------------------
+# ============================================================
+# THREAD LOCK
+# ============================================================
 
 _lock = threading.Lock()
 
 
-# --------------------------------------------------------------------------
-# Notice cache
-# --------------------------------------------------------------------------
+# ============================================================
+# NOTICE CACHE
+# ============================================================
 
 _notice_cache = {
     "notices": [],
@@ -134,18 +134,19 @@ _notice_cache = {
 }
 
 
-# --------------------------------------------------------------------------
-# Notice scraping
-# --------------------------------------------------------------------------
+# ============================================================
+# NOTICE SCRAPER
+# ============================================================
 
 def refresh_notice_cache():
     """
-    Fetch latest notices and update the in-memory cache.
+    Fetch the latest KU notices and update the cache.
 
-    If scraping fails, keep the last successfully fetched notices.
+    If scraping fails, previously fetched notices are preserved.
     """
 
     try:
+
         logger.info("Refreshing KU notices...")
 
         notices, error = fetch_notices_safe(limit=12)
@@ -153,21 +154,26 @@ def refresh_notice_cache():
         with _lock:
 
             if notices:
+
                 _notice_cache["notices"] = notices
                 _notice_cache["error"] = None
 
             else:
-                # Keep previous successful data if scraping failed.
+
+                # Keep previous successful notices.
                 _notice_cache["error"] = error
 
             _notice_cache["lastUpdated"] = utc_now_iso()
 
         if error:
+
             logger.warning(
-                "Notice refresh completed with error: %s",
+                "Notice refresh finished with error: %s",
                 error,
             )
+
         else:
+
             logger.info(
                 "Notice cache refreshed successfully: %d notices",
                 len(notices),
@@ -176,33 +182,29 @@ def refresh_notice_cache():
     except Exception as exc:
 
         logger.exception(
-            "Unexpected error while refreshing notices: %s",
-            exc,
+            "Unexpected error while refreshing notices"
         )
 
         with _lock:
+
             _notice_cache["error"] = str(exc)
             _notice_cache["lastUpdated"] = utc_now_iso()
 
 
-# --------------------------------------------------------------------------
-# Scheduler
-# --------------------------------------------------------------------------
+# ============================================================
+# BACKGROUND SCHEDULER
+# ============================================================
 
 scheduler = None
 
 
 def start_scheduler():
     """
-    Start the background scheduler.
-
-    This is kept separate so the scheduler can be controlled safely
-    when running behind Gunicorn.
+    Start APScheduler for automatic notice refreshing.
     """
 
     global scheduler
 
-    # Prevent accidental duplicate schedulers.
     if scheduler is not None:
         return
 
@@ -225,28 +227,37 @@ def start_scheduler():
     scheduler.start()
 
     logger.info(
-        "Notice scheduler started. Refresh interval: %s seconds",
+        "Notice scheduler started. "
+        "Refresh interval: %s seconds",
         REFRESH_INTERVAL_SECONDS,
     )
 
 
-# --------------------------------------------------------------------------
-# JSON helpers
-# --------------------------------------------------------------------------
+# ============================================================
+# JSON HELPERS
+# ============================================================
 
 def read_json(path):
     """
-    Read JSON file safely.
+    Read JSON data from a file.
     """
 
     try:
 
-        with open(path, "r", encoding="utf-8") as file:
+        with open(
+            path,
+            "r",
+            encoding="utf-8",
+        ) as file:
+
             return json.load(file)
 
     except FileNotFoundError:
 
-        logger.error("JSON file not found: %s", path)
+        logger.error(
+            "JSON file not found: %s",
+            path,
+        )
 
         return {}
 
@@ -263,16 +274,18 @@ def read_json(path):
 
 def write_json(path, data):
     """
-    Write JSON data to disk.
+    Write JSON data safely to disk.
     """
 
     directory = os.path.dirname(path)
 
     if directory:
-        os.makedirs(directory, exist_ok=True)
 
-    # Write to a temporary file first, then replace the original.
-    # This reduces the chance of leaving a partially-written JSON file.
+        os.makedirs(
+            directory,
+            exist_ok=True,
+        )
+
     temp_path = f"{path}.tmp"
 
     with open(
@@ -288,12 +301,15 @@ def write_json(path, data):
             ensure_ascii=False,
         )
 
-    os.replace(temp_path, path)
+    os.replace(
+        temp_path,
+        path,
+    )
 
 
-# --------------------------------------------------------------------------
-# Health
-# --------------------------------------------------------------------------
+# ============================================================
+# HEALTH CHECK
+# ============================================================
 
 @app.get("/api/health")
 def health():
@@ -306,17 +322,20 @@ def health():
     )
 
 
-# --------------------------------------------------------------------------
-# Notices
-# --------------------------------------------------------------------------
+# ============================================================
+# NOTICES
+# ============================================================
 
 @app.get("/api/notices")
 def get_notices():
 
     with _lock:
+
         payload = dict(_notice_cache)
 
-    payload["refreshIntervalSeconds"] = REFRESH_INTERVAL_SECONDS
+    payload[
+        "refreshIntervalSeconds"
+    ] = REFRESH_INTERVAL_SECONDS
 
     return jsonify(payload)
 
@@ -327,16 +346,19 @@ def force_refresh_notices():
     refresh_notice_cache()
 
     with _lock:
+
         payload = dict(_notice_cache)
 
-    payload["refreshIntervalSeconds"] = REFRESH_INTERVAL_SECONDS
+    payload[
+        "refreshIntervalSeconds"
+    ] = REFRESH_INTERVAL_SECONDS
 
     return jsonify(payload)
 
 
-# --------------------------------------------------------------------------
-# Routine
-# --------------------------------------------------------------------------
+# ============================================================
+# ROUTINE
+# ============================================================
 
 @app.get("/api/routine")
 def get_routine():
@@ -352,7 +374,7 @@ def update_routine():
     """
     Replace the complete routine.
 
-    Expected payload:
+    Required fields:
 
     {
         "days": [...],
@@ -380,14 +402,18 @@ def update_routine():
         "classes",
     }
 
-    missing_keys = required_keys - body.keys()
+    missing_keys = (
+        required_keys - body.keys()
+    )
 
     if missing_keys:
 
         return jsonify(
             {
                 "error": "Missing required fields",
-                "missing": sorted(missing_keys),
+                "missing": sorted(
+                    missing_keys
+                ),
             }
         ), 400
 
@@ -416,9 +442,9 @@ def update_routine():
     return jsonify(body)
 
 
-# --------------------------------------------------------------------------
-# Semesters
-# --------------------------------------------------------------------------
+# ============================================================
+# SEMESTERS
+# ============================================================
 
 @app.get("/api/semesters")
 def get_semesters():
@@ -428,9 +454,9 @@ def get_semesters():
     )
 
 
-# --------------------------------------------------------------------------
-# Error handlers
-# --------------------------------------------------------------------------
+# ============================================================
+# ERROR HANDLERS
+# ============================================================
 
 @app.errorhandler(404)
 def not_found(error):
@@ -445,7 +471,7 @@ def not_found(error):
 @app.errorhandler(500)
 def internal_error(error):
 
-    logger.exception(
+    logger.error(
         "Internal server error: %s",
         error,
     )
@@ -457,24 +483,21 @@ def internal_error(error):
     ), 500
 
 
-# --------------------------------------------------------------------------
-# Start scheduler
-# --------------------------------------------------------------------------
+# ============================================================
+# START SCHEDULER
+# ============================================================
 
-# Render/Gunicorn imports this module directly.
-#
-# Start the scheduler when the application is imported.
-#
-# If you later use multiple Gunicorn workers, use ONE worker for this
-# in-memory cache + scheduler architecture.
-#
-if os.environ.get("DISABLE_SCHEDULER", "").lower() != "true":
+if os.environ.get(
+    "DISABLE_SCHEDULER",
+    ""
+).lower() != "true":
+
     start_scheduler()
 
 
-# --------------------------------------------------------------------------
-# Local development
-# --------------------------------------------------------------------------
+# ============================================================
+# LOCAL DEVELOPMENT
+# ============================================================
 
 if __name__ == "__main__":
 
@@ -489,4 +512,3 @@ if __name__ == "__main__":
         debug=False,
         use_reloader=False,
     )
-```
