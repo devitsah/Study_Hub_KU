@@ -5,7 +5,7 @@ import { Semester } from '../models/semester.model';
 
 @Injectable({ providedIn: 'root' })
 export class SemesterService {
-  private readonly base = '/api/semesters';
+ private readonly base = 'https://study-hub-ku-2.onrender.com/api/semesters';
 
   constructor(private http: HttpClient) {}
 
