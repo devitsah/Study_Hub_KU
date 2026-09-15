@@ -5,7 +5,7 @@ import { Routine } from '../models/routine.model';
 
 @Injectable({ providedIn: 'root' })
 export class RoutineService {
-  private readonly base = '/api/routine';
+private readonly base = 'https://study-hub-ku-2.onrender.com/api/routine';
 
   constructor(private http: HttpClient) {}
 
