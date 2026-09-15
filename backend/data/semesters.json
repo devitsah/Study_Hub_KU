@@ -1,0 +1,10 @@
+[
+  { "id": 1, "name": "1st Semester", "driveLink": "https://drive.google.com/drive/folders/1wKpqP06WDUpTTM0PAKws9jze1-s62Pc3", "color": "#2e7d32" },
+  { "id": 2, "name": "2nd Semester", "driveLink": "https://drive.google.com/drive/folders/1xAtz7Px6Aiw4S9WIpi9Gx7g-1FSNU6Oh", "color": "#c2185b" },
+  { "id": 3, "name": "3rd Semester", "driveLink": "https://drive.google.com/drive/folders/12s5nq6M_ZsEWOPYe0-jz_T6jxj5P3Yq4", "color": "#8e24aa" },
+  { "id": 4, "name": "4th Semester", "driveLink": "https://drive.google.com/drive/folders/1mIlfN64mUjJff17gJcADtph9hK2mHDSx", "color": "#f9a825" },
+  { "id": 5, "name": "5th Semester", "driveLink": "https://drive.google.com/drive/folders/1ic6Jn1pVdGX3bvUYivi1FnZT8FFXXS9G", "color": "#a1665e" },
+  { "id": 6, "name": "6th Semester", "driveLink": "https://drive.google.com/drive/folders/11aoP99lt6z6H4EJorGAOTboxjIrFVry3", "color": "#1565c0" },
+  { "id": 7, "name": "7th Semester", "driveLink": "https://drive.google.com/drive/folders/1nAfnseYltXv9TVCd4HaB8Zd7f-myl4Ki", "color": "#4d9a9a" },
+  { "id": 8, "name": "8th Semester", "driveLink": null, "color": "#616161" }
+]

@@ -1,0 +1,133 @@
+<header class="topbar">
+  <div class="search">
+    <span>🔍</span>
+    <input type="text" placeholder="Search notices, courses, or topics..." />
+  </div>
+  <div class="user">
+    <div class="avatar">AD</div>
+    <div>
+      <div class="user-name">Hi, Aaishra My Love🫶🏻❤️</div>
+      <div class="user-sub">Computer Science | 1st Sem</div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="eyebrow">WELCOME BACK, Aaishra 👋</span>
+    <h1>Your Study Companion</h1>
+    <p>Stay updated. Manage your classes. Keep learning.</p>
+  </div>
+  <div class="hero-quote">
+    <span>Better</span>
+    <span>Students</span>
+    <span>Brighter</span>
+    <span>Futures</span>
+  </div>
+</section>
+
+<div class="grid-main">
+  <section class="card panel notices-panel">
+    <div class="panel-head">
+      <h2>🔔 Latest Notices</h2>
+      <div class="head-actions">
+        <span class="live-dot" [class.stale]="noticesError"></span>
+        <span class="refresh-label">{{ noticesError ? 'Using cached data' : 'Live from ku.edu.np' }}</span>
+        <button class="btn btn-ghost" (click)="refreshNow()">↻ Refresh</button>
+        <a routerLink="/notices" class="view-all">View All →</a>
+      </div>
+    </div>
+
+    <div *ngIf="noticesLoading" class="empty-state">Loading latest notices…</div>
+    <div *ngIf="!noticesLoading && notices.length === 0" class="empty-state">
+      {{ noticesError ? noticesError : 'No notices available right now.' }}
+    </div>
+
+    <ul class="notice-list" *ngIf="!noticesLoading">
+      <li *ngFor="let n of notices.slice(0, 5)">
+        <div class="notice-thumb" [style.backgroundImage]="n.image ? 'url(' + n.image + ')' : null">
+          <span *ngIf="!n.image">📄</span>
+        </div>
+        <div class="notice-body">
+          <span class="pill notice-pill">Highlights</span>
+          <span class="notice-date" *ngIf="n.date">{{ n.date }}</span>
+          <a class="notice-title" [href]="n.link" target="_blank" rel="noopener">{{ n.title }}</a>
+        </div>
+        <a class="notice-arrow" [href]="n.link" target="_blank" rel="noopener">›</a>
+      </li>
+    </ul>
+
+    <div class="refresh-footer">
+      Last updated {{ timeAgo(lastUpdated) }} &middot; next auto-refresh in {{ secondsToNextRefresh }}s
+    </div>
+  </section>
+
+  <section class="card panel routine-panel">
+    <div class="panel-head">
+      <h2>📅 My Class Routine <span class="muted" *ngIf="routine">({{ routine.semesterLabel }})</span></h2>
+      <div class="head-actions">
+        <a routerLink="/routine" class="btn btn-primary">✎ Edit Routine</a>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="!routine">
+      Connecting to backend at <code>/api/routine</code>… make sure <code>python app.py</code> is running on port 5000.
+    </div>
+
+    <div class="table-wrap" *ngIf="routine">
+      <table class="routine-table">
+        <thead>
+          <tr>
+            <th class="time-col">Time</th>
+            <th *ngFor="let day of routine.days">{{ day }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let slot of routine.slots; let i = index">
+            <td class="time-col">{{ slot }}</td>
+            <ng-container *ngFor="let day of routine.days">
+              <td *ngIf="grid[day][i].type === 'empty'" class="cell-empty">–</td>
+              <td
+                *ngIf="grid[day][i].type === 'class'"
+                [attr.rowspan]="asClass(grid[day][i]).span"
+                class="cell-class"
+                [style.background]="asClass(grid[day][i]).color + '22'"
+                [style.borderLeft]="'4px solid ' + asClass(grid[day][i]).color"
+              >
+                <div class="class-code" [style.color]="asClass(grid[day][i]).color">{{ asClass(grid[day][i]).code }}</div>
+                <div class="class-teacher">{{ asClass(grid[day][i]).teacher }}</div>
+                <div class="class-room">{{ asClass(grid[day][i]).room }}</div>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="card semesters-card" id="semesters">
+  <div class="panel-head">
+    <h2>🗂️ All Sem Notes</h2>
+    <span class="muted">Tap a semester to open its Google Drive folder</span>
+  </div>
+  <div class="empty-state" *ngIf="semesters.length === 0">
+    Connecting to backend at <code>/api/semesters</code>…
+  </div>
+
+  <div class="semester-grid" *ngIf="semesters.length > 0">
+    <button
+      *ngFor="let sem of semesters"
+      class="semester-card"
+      [class.disabled]="!sem.driveLink"
+      [disabled]="!sem.driveLink"
+      (click)="openSemester(sem)"
+      [style.borderTopColor]="sem.color"
+    >
+      <div class="semester-icon" [style.background]="sem.color + '22'" [style.color]="sem.color">📁</div>
+      <div class="semester-name">{{ sem.name }}</div>
+      <div class="semester-hint" *ngIf="sem.driveLink">Open Drive folder ↗</div>
+      <div class="semester-hint" *ngIf="!sem.driveLink">Coming soon</div>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,124 @@
+<div class="card panel" *ngIf="routine">
+  <div class="panel-head">
+    <h2>📅 {{ routine.programTitle }} <span class="muted">({{ routine.semesterLabel }})</span></h2>
+    <div class="head-actions">
+      <span class="muted" *ngIf="!editMode">Click "Edit Routine" to make changes when your schedule updates.</span>
+      <button class="btn" [class.btn-primary]="!editMode" [class.btn-danger]="editMode" (click)="toggleEditMode()">
+        {{ editMode ? '✕ Exit Edit Mode' : '✎ Edit Routine' }}
+      </button>
+      <button class="btn btn-primary" *ngIf="editMode" [disabled]="!dirty || saving" (click)="saveAll()">
+        {{ saving ? 'Saving…' : '💾 Save Changes' }}
+      </button>
+    </div>
+  </div>
+
+  <p class="hint" *ngIf="editMode">
+    Tap any cell to add or edit a class. Tap an occupied cell to edit or delete it. Time labels are editable too.
+  </p>
+
+  <div class="table-wrap">
+    <table class="routine-table editable" [class.edit-on]="editMode">
+      <thead>
+        <tr>
+          <th class="time-col">Time</th>
+          <th *ngFor="let day of routine.days">{{ day }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let slot of routine.slots; let i = index">
+          <td class="time-col">
+            <input
+              *ngIf="editMode"
+              class="slot-input"
+              [(ngModel)]="routine.slots[i]"
+              (change)="onSlotLabelChange()"
+            />
+            <span *ngIf="!editMode">{{ slot }}</span>
+            <button *ngIf="editMode" class="slot-remove" title="Remove this time slot" (click)="removeSlot(i)">✕</button>
+          </td>
+          <ng-container *ngFor="let day of routine.days">
+            <td
+              *ngIf="grid[day][i].type === 'empty'"
+              class="cell-empty"
+              [class.clickable]="editMode"
+              (click)="onCellClick(day, i, grid[day][i])"
+            >
+              {{ editMode ? '+ add' : '–' }}
+            </td>
+            <td
+              *ngIf="grid[day][i].type === 'class'"
+              [attr.rowspan]="asClass(grid[day][i]).span"
+              class="cell-class"
+              [class.clickable]="editMode"
+              [style.background]="asClass(grid[day][i]).color + '22'"
+              [style.borderLeft]="'4px solid ' + asClass(grid[day][i]).color"
+              (click)="onCellClick(day, i, grid[day][i])"
+            >
+              <div class="class-code" [style.color]="asClass(grid[day][i]).color">{{ asClass(grid[day][i]).code }}</div>
+              <div class="class-teacher">{{ asClass(grid[day][i]).teacher }}</div>
+              <div class="class-room">{{ asClass(grid[day][i]).room }}</div>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="btn btn-ghost add-slot-btn" *ngIf="editMode" (click)="addSlot()">+ Add Time Slot</button>
+
+  <div class="legend">
+    <span *ngFor="let c of routine.classes | slice:0:0"></span>
+    <span class="last-updated" *ngIf="routine.lastUpdated">Last saved {{ routine.lastUpdated | date:'medium' }}</span>
+  </div>
+</div>
+
+<!-- ===== Edit modal ===== -->
+<div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ isNewClass ? 'Add Class' : 'Edit Class' }}</h3>
+
+    <label>Subject code</label>
+    <input [(ngModel)]="form.code" placeholder="e.g. COMP102" />
+
+    <label>Teacher</label>
+    <input [(ngModel)]="form.teacher" placeholder="e.g. Mr. Pratit Raj Giri" />
+
+    <label>Room</label>
+    <input [(ngModel)]="form.room" placeholder="e.g. 6-208" />
+
+    <div class="row-2">
+      <div>
+        <label>Day</label>
+        <select [(ngModel)]="form.day">
+          <option *ngFor="let d of routine?.days" [value]="d">{{ d }}</option>
+        </select>
+      </div>
+      <div>
+        <label>Start time</label>
+        <select [(ngModel)]="form.startSlot">
+  <option *ngFor="let s of routine?.slots; let i = index" [ngValue]="i">{{ s }}</option>
+</select>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div>
+        <label>Duration (slots)</label>
+        <input type="number" min="1" [(ngModel)]="form.span" />
+      </div>
+      <div>
+        <label>Color</label>
+        <input type="color" [(ngModel)]="form.color" />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-danger" *ngIf="!isNewClass" (click)="deleteClassForm()">🗑 Delete</button>
+      <div class="spacer"></div>
+      <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
+      <button class="btn btn-primary" (click)="saveClassForm()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" *ngIf="toast">{{ toast }}</div>

@@ -1,0 +1,166 @@
+{
+  "classes": [
+    {
+      "code": "COMP102",
+      "color": "#2e7d32",
+      "day": "Mon",
+      "id": "c1",
+      "room": "9-302 (Computer Lab)",
+      "span": 2,
+      "startSlot": 0,
+      "teacher": "Mr. Pratit Raj Giri"
+    },
+    {
+      "code": "EDRG101",
+      "color": "#c2185b",
+      "day": "Mon",
+      "id": "c2",
+      "room": "Drawing Hall 2 (31C 3rd floor)",
+      "span": 3,
+      "startSlot": 3,
+      "teacher": "Mr. Sambhav Belbase, Mr. Bibek Bhusal"
+    },
+    {
+      "code": "MATH101",
+      "color": "#8e24aa",
+      "day": "Tue",
+      "id": "c3",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 0,
+      "teacher": "Mr. R Prit Ray"
+    },
+    {
+      "code": "EDRG101",
+      "color": "#c2185b",
+      "day": "Tue",
+      "id": "c4",
+      "room": "6-208",
+      "span": 1,
+      "startSlot": 2,
+      "teacher": "Mr. Sambhav Belbase, Mr. Bibek Bhusal"
+    },
+    {
+      "code": "PHYS101",
+      "color": "#43a047",
+      "day": "Tue",
+      "id": "c5",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 4,
+      "teacher": "Mr. Manoj Pandey"
+    },
+    {
+      "code": "CHEM101",
+      "color": "#a1665e",
+      "day": "Tue",
+      "id": "c6",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 6,
+      "teacher": "Mr. Prakash Lamichhane"
+    },
+    {
+      "code": "COMP102",
+      "color": "#2e7d32",
+      "day": "Wed",
+      "id": "c7",
+      "room": "9-302 (Computer Lab)",
+      "span": 2,
+      "startSlot": 0,
+      "teacher": "Mr. Pratit Raj Giri"
+    },
+    {
+      "code": "PHYS101 LAB",
+      "color": "#9e9d24",
+      "day": "Wed",
+      "id": "c8",
+      "room": "06-202 & 06-203",
+      "span": 2,
+      "startSlot": 2,
+      "teacher": "Mr. Manoj Pandey"
+    },
+    {
+      "code": "PHYS101",
+      "color": "#43a047",
+      "day": "Wed",
+      "id": "c9",
+      "room": "6-208",
+      "span": 1,
+      "startSlot": 7,
+      "teacher": "Mr. Manoj Pandey"
+    },
+    {
+      "code": "ENGG101",
+      "color": "#4d9a9a",
+      "day": "Thu",
+      "id": "c10",
+      "room": "Workshop",
+      "span": 3,
+      "startSlot": 0,
+      "teacher": "Mr. Gokarna Poudel"
+    },
+    {
+      "code": "ENGG111",
+      "color": "#1565c0",
+      "day": "Thu",
+      "id": "c11",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 6,
+      "teacher": "Dr. Pratisthit Lal Shrestha"
+    },
+    {
+      "code": "MATH101",
+      "color": "#8e24aa",
+      "day": "Fri",
+      "id": "c12",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 0,
+      "teacher": "Mr. R Prit Ray"
+    },
+    {
+      "code": "ENGG111",
+      "color": "#1565c0",
+      "day": "Fri",
+      "id": "c13",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 2,
+      "teacher": "Dr. Pratisthit Lal Shrestha"
+    },
+    {
+      "code": "CHEM101",
+      "color": "#a1665e",
+      "day": "Fri",
+      "id": "c14",
+      "room": "6-208",
+      "span": 2,
+      "startSlot": 4,
+      "teacher": "Mr. Prakash Lamichhane"
+    }
+  ],
+  "days": [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri"
+  ],
+  "lastUpdated": "2026-09-15T20:28:49.956995+00:00",
+  "programTitle": "Kathmandu University — I CS-I/I B",
+  "semesterLabel": "1st Semester",
+  "slots": [
+    "07:00-08:00",
+    "08:00-09:00",
+    "09:00-10:00",
+    "10:00-11:00",
+    "11:00-12:00",
+    "12:00-13:00",
+    "13:00-14:00",
+    "14:00-15:00",
+    "15:00-16:00",
+    "16:00-17:00"
+  ]
+}
