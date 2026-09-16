@@ -22,6 +22,7 @@ html, body {
   background: var(--page-bg);
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* safety net: inner scroll areas (tables) still scroll fine */
 }
 
 button { font-family: inherit; cursor: pointer; }
@@ -32,6 +33,7 @@ input, select, textarea { font-family: inherit; }
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   border: 1px solid var(--border);
+  min-width: 0; /* prevents grid/flex children from forcing page-wide overflow */
 }
 
 .btn {
