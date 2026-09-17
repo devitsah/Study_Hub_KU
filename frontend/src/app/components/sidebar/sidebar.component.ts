@@ -41,6 +41,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         <a href="#semesters" class="nav-item" (click)="scrollToSemesters($event)">
           <span class="icon">📁</span> Notes
         </a>
+        <a routerLink="/tutorials" routerLinkActive="active" class="nav-item" (click)="closeMenu()">
+          <span class="icon">▶️</span> Tutorials
+        </a>
         <a href="https://roadmap.sh" target="_blank" rel="noopener" class="nav-item" (click)="closeMenu()">
           <span class="icon">📈</span> Roadmap.sh
         </a>
