@@ -1,0 +1,76 @@
+<section class="card panel hero-panel">
+  <div class="hero-icon">▶️</div>
+  <div>
+    <h1>Tutorials</h1>
+    <p>Learn from the best. Explore subject-wise tutorials and start learning today.</p>
+  </div>
+</section>
+
+<!-- ===== Subject picker ===== -->
+<section class="card panel" *ngIf="!selected">
+  <div class="panel-head">
+    <h2>📗 Select a Subject</h2>
+    <input class="search-box" type="text" placeholder="Search subjects…" [(ngModel)]="subjectQuery" />
+  </div>
+
+  <div *ngIf="loading" class="empty-state">Loading subjects…</div>
+
+  <div class="subject-grid" *ngIf="!loading">
+    <button
+      *ngFor="let s of filteredSubjects()"
+      class="subject-card"
+      [style.background]="s.color + '18'"
+      [style.borderColor]="s.color + '55'"
+      (click)="selectSubject(s)"
+    >
+      <div class="subject-icon" [style.background]="s.color + '30'" [style.color]="s.color">📁</div>
+      <div class="subject-name">{{ s.name }}</div>
+      <div class="subject-count">{{ s.videos.length }}+ curated videos</div>
+    </button>
+  </div>
+</section>
+
+<!-- ===== Video list for the chosen subject ===== -->
+<section class="card panel" *ngIf="selected">
+  <button class="back-btn" (click)="backToSubjects()">← Back</button>
+
+  <div class="subject-header">
+    <h2>{{ selected.fullName }} Tutorials</h2>
+    <p>Hand-picked playlists and full courses from well-known channels, matched to your notes' chapters.</p>
+  </div>
+
+  <div class="channel-tabs">
+    <button
+      *ngFor="let tab of channelTabs()"
+      class="tab"
+      [class.active]="activeChannel === tab.name"
+      (click)="activeChannel = tab.name"
+    >
+      {{ tab.name }} ({{ tab.count }})
+    </button>
+  </div>
+
+  <div class="video-grid">
+    <a
+      class="video-card"
+      *ngFor="let v of visibleVideos()"
+      [href]="youtubeSearchUrl(v.query)"
+      target="_blank"
+      rel="noopener"
+    >
+      <div class="video-thumb" [style.background]="selected.color">
+        <span class="play-btn">▶</span>
+        <span class="duration-badge">{{ v.duration }}</span>
+      </div>
+      <div class="video-body">
+        <div class="video-title">{{ v.title }}</div>
+        <div class="video-channel">
+          <span class="channel-avatar" [style.background]="selected.color">{{ channelInitial(v.channel) }}</span>
+          {{ v.channel }}
+        </div>
+        <p class="video-note">{{ v.note }}</p>
+        <span class="watch-link">Watch on YouTube ↗</span>
+      </div>
+    </a>
+  </div>
+</section>
