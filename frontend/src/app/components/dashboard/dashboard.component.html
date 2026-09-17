@@ -4,9 +4,9 @@
     <input type="text" placeholder="Search notices, courses, or topics..." />
   </div>
   <div class="user">
-    <div class="avatar">AD</div>
+    <div class="avatar">DS</div>
     <div>
-      <div class="user-name">Hi, Aaishra My Love🫶🏻❤️</div>
+      <div class="user-name">Hi, Devit</div>
       <div class="user-sub">Computer Science | 1st Sem</div>
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <section class="hero">
   <div class="hero-text">
-    <span class="eyebrow">WELCOME BACK, Aaishra 👋</span>
+    <span class="eyebrow">WELCOME BACK, DEVIT 👋</span>
     <h1>Your Study Companion</h1>
     <p>Stay updated. Manage your classes. Keep learning.</p>
   </div>
@@ -108,7 +108,7 @@
 
 <section class="card semesters-card" id="semesters">
   <div class="panel-head">
-    <h2>🗂️ All Sem Notes</h2>
+    <h2>🗂️ All Semesters</h2>
     <span class="muted">Tap a semester to open its Google Drive folder</span>
   </div>
   <div class="empty-state" *ngIf="semesters.length === 0">
@@ -131,3 +131,23 @@
     </button>
   </div>
 </section>
+
+<div class="promo-grid">
+  <a routerLink="/tutorials" class="card promo-card tutorials-promo">
+    <div class="promo-icon">▶️</div>
+    <div class="promo-body">
+      <h3>Tutorials</h3>
+      <p>Curated video courses for every subject — pick a topic and jump straight to the best playlist.</p>
+      <span class="promo-cta">Browse Tutorials →</span>
+    </div>
+  </a>
+
+  <a href="https://roadmap.sh" target="_blank" rel="noopener" class="card promo-card roadmap-promo">
+    <div class="promo-icon">🧭</div>
+    <div class="promo-body">
+      <h3>Roadmap.sh</h3>
+      <p>Explore structured roadmaps for in-demand skills and track your progress — Frontend, Backend, DevOps, Data Science, AI/ML and more.</p>
+      <span class="promo-cta">Explore Roadmaps →</span>
+    </div>
+  </a>
+</div>
