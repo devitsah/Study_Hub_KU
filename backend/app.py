@@ -11,6 +11,7 @@ POST /api/notices/refresh
 GET  /api/routine
 PUT  /api/routine
 GET  /api/semesters
+GET  /api/tutorials
 """
 
 import json
@@ -48,6 +49,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 ROUTINE_PATH = os.path.join(DATA_DIR, "routine.json")
 SEMESTERS_PATH = os.path.join(DATA_DIR, "semesters.json")
+TUTORIALS_PATH = os.path.join(DATA_DIR, "tutorials.json")
 
 os.makedirs(DATA_DIR, exist_ok=True)
 
@@ -451,6 +453,18 @@ def get_semesters():
 
     return jsonify(
         read_json(SEMESTERS_PATH)
+    )
+
+
+# ============================================================
+# TUTORIALS
+# ============================================================
+
+@app.get("/api/tutorials")
+def get_tutorials():
+
+    return jsonify(
+        read_json(TUTORIALS_PATH)
     )
 
 
