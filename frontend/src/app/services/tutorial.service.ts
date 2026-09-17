@@ -5,7 +5,7 @@ import { TutorialSubject } from '../models/tutorial.model';
 
 @Injectable({ providedIn: 'root' })
 export class TutorialService {
-  private readonly base = '/api/tutorials';
+  private readonly base = 'https://study-hub-ku-2.onrender.com/api/tutorials';
 
   constructor(private http: HttpClient) {}
 
