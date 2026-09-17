@@ -20,10 +20,21 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
         <img src="assets/icons/icon-512.png" alt="StudyHub" />
       </div>
 
-      <div class="splash-message" [class.show]="showMessage">
-        Hi Aaishra <span class="heart">💗</span><br />
-        Devit loves you so so much <span class="heart">❤️</span>
-      </div>
+     <div class="splash-message" [class.show]="showMessage">
+  <span class="little-line">✦ ───────── ✦</span>
+
+  <span class="small-text">A little something</span>
+
+  <span class="main-text">
+    Made with love,<br />
+    <em>just for you</em>
+    <span class="heart">♡</span>
+  </span>
+
+  <span class="little-line">✦ ───────── ✦</span>
+
+  <span class="signature">— Devit</span>
+</div>
     </div>
 
     <div class="shell">
