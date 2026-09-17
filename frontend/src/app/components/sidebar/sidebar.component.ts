@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -38,7 +38,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         <a routerLink="/routine" routerLinkActive="active" class="nav-item" (click)="closeMenu()">
           <span class="icon">📅</span> My Routine
         </a>
-        <a href="#semesters" class="nav-item" (click)="scrollToSemesters($event)">
+        <a routerLink="/" class="nav-item" (click)="scrollToSemesters($event)">
           <span class="icon">📁</span> Notes
         </a>
         <a routerLink="/tutorials" routerLinkActive="active" class="nav-item" (click)="closeMenu()">
@@ -166,6 +166,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class SidebarComponent {
   mobileOpen = false;
 
+  constructor(private router: Router) {}
+
   toggleMenu(): void {
     this.mobileOpen = !this.mobileOpen;
   }
@@ -175,9 +177,19 @@ export class SidebarComponent {
   }
 
   scrollToSemesters(e: Event): void {
-    this.closeMenu();
-    if (window.location.pathname !== '/') return; // let router handle nav elsewhere
     e.preventDefault();
-    document.getElementById('semesters')?.scrollIntoView({ behavior: 'smooth' });
+    this.closeMenu();
+
+    const goToSection = () =>
+      document.getElementById('semesters')?.scrollIntoView({ behavior: 'smooth' });
+
+    if (this.router.url === '/') {
+      // Already on the dashboard -- just scroll, no navigation needed.
+      goToSection();
+    } else {
+      // Navigate via the Angular Router (no full page reload), then scroll
+      // once the dashboard has rendered.
+      this.router.navigateByUrl('/').then(() => setTimeout(goToSection, 150));
+    }
   }
 }
