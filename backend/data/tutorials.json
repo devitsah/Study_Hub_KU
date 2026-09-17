@@ -1,0 +1,94 @@
+{
+  "subjects": [
+    {
+      "id": "COMP102",
+      "name": "COMP102",
+      "fullName": "C Programming",
+      "color": "#2e7d32",
+      "videos": [
+        { "title": "C Language Tutorial for Beginners (with Notes & Practice Questions)", "channel": "Apna College", "duration": "10h 32m", "note": "Full course, Ch.1 Intro through Ch.10 File I/O, with a practice set after every chapter.", "query": "Apna College C Language Tutorial for Beginners with Notes and Practice Questions" },
+        { "title": "C Language Tutorial for Beginners (With Notes)", "channel": "CodeWithHarry", "duration": "10h 53m", "note": "Chapter-wise: operators, conditionals, loops, functions, pointers, arrays, structures, file I/O.", "query": "CodeWithHarry C Language Tutorial for Beginners With Notes" },
+        { "title": "C Programming Full Course Playlist", "channel": "Neso Academy", "duration": "Full playlist", "note": "Topic-by-topic lessons matching Fundamentals \u2192 Operators \u2192 Loops \u2192 Functions \u2192 Pointers \u2192 Structures order.", "query": "Neso Academy C Programming full course playlist" },
+        { "title": "C Programming Tutorial for Beginners", "channel": "freeCodeCamp.org", "duration": "3h 46m", "note": "Faster-paced English crash course \u2014 good for quick revision before exams.", "query": "freeCodeCamp C Programming Tutorial for Beginners" }
+      ]
+    },
+    {
+      "id": "EDRG101",
+      "name": "EDRG101",
+      "fullName": "Engineering Drawing",
+      "color": "#c2185b",
+      "videos": [
+        { "title": "Engineering Drawing Full Course", "channel": "Ekeeda", "duration": "Full playlist", "note": "Lettering, scales & dimensioning, conic sections, engineering curves \u2014 matches your Ch.1\u2013Ch.5 folders.", "query": "Ekeeda Engineering Drawing full course lettering scales dimensioning" },
+        { "title": "Orthographic Projection Explained", "channel": "LearnEngineering", "duration": "~15 min per topic", "note": "Clean animated explanations of orthographic projection and projection of planes/solids.", "query": "LearnEngineering orthographic projection projection of planes and solids" },
+        { "title": "Engineering Drawing (NPTEL)", "channel": "NPTEL", "duration": "Full playlist", "note": "University-level lecture series, useful for surface development and advanced topics.", "query": "NPTEL Engineering Drawing surface development lecture" }
+      ]
+    },
+    {
+      "id": "ENGG101",
+      "name": "ENGG101",
+      "fullName": "Engineering Workshop",
+      "color": "#4d9a9a",
+      "videos": [
+        { "title": "Workshop Technology Full Course", "channel": "Ekeeda", "duration": "Full playlist", "note": "Covers fitting, carpentry, sheet metal, welding and other workshop practicals.", "query": "Ekeeda Workshop Technology full course" },
+        { "title": "Engineering Workshop Practice", "channel": "5 Minutes Engineering", "duration": "Short topic videos", "note": "Quick, exam-focused explanations of individual workshop trades.", "query": "5 Minutes Engineering workshop practice" }
+      ]
+    },
+    {
+      "id": "ENGG111",
+      "name": "ENGG111",
+      "fullName": "Basic Engineering (Mechanics, Civil, Survey)",
+      "color": "#1565c0",
+      "videos": [
+        { "title": "Engineering Mechanics Full Course", "channel": "Ekeeda", "duration": "Full playlist", "note": "Statics and dynamics fundamentals \u2014 matches your Mechanics folder.", "query": "Ekeeda Engineering Mechanics full course" },
+        { "title": "Fluid Mechanics & Thermodynamics Basics", "channel": "5 Minutes Engineering", "duration": "Short topic videos", "note": "Bite-sized explanations matching your Fluid/Thermodynamics lecture PDFs.", "query": "5 Minutes Engineering fluid mechanics thermodynamics basics" },
+        { "title": "Surveying Basics \u2014 EDM & GPS", "channel": "NPTEL", "duration": "Full playlist", "note": "Covers levelling, EDM, GPS and other surveying fundamentals for your Survey folder.", "query": "NPTEL surveying basics EDM GPS lecture" }
+      ]
+    },
+    {
+      "id": "MATHS101",
+      "name": "MATHS101",
+      "fullName": "Engineering Mathematics I",
+      "color": "#f9a825",
+      "videos": [
+        { "title": "Engineering Mathematics Full Course", "channel": "Neso Academy", "duration": "Full playlist", "note": "Limits, derivatives, integration, sequences & series \u2014 matches Ch.1\u2013Ch.6.", "query": "Neso Academy Engineering Mathematics full course limits derivatives integration" },
+        { "title": "Calculus Full Course", "channel": "The Organic Chemistry Tutor", "duration": "Full playlist", "note": "Deep dive into derivatives and integration with tons of worked examples.", "query": "The Organic Chemistry Tutor calculus full course derivatives integration" },
+        { "title": "Linear Algebra: Vector Spaces & Eigenvalues", "channel": "3Blue1Brown", "duration": "Essence of Linear Algebra series", "note": "Best visual intuition for Ch.8 Vector Spaces and Ch.9 Eigenvalues/Eigenvectors.", "query": "3Blue1Brown essence of linear algebra eigenvalues eigenvectors" }
+      ]
+    },
+    {
+      "id": "PHY101",
+      "name": "PHY101",
+      "fullName": "Physics I",
+      "color": "#43a047",
+      "videos": [
+        { "title": "Physics Full Course \u2014 Waves, Oscillation & Optics", "channel": "Neso Academy", "duration": "Full playlist", "note": "Covers rotational dynamics, waves & oscillation, interference, diffraction, polarization.", "query": "Neso Academy Physics waves oscillation interference diffraction polarization" },
+        { "title": "Engineering Physics Full Course", "channel": "Ekeeda", "duration": "Full playlist", "note": "Chapter-matched: elasticity, viscosity, LASER, heat transfer.", "query": "Ekeeda Engineering Physics elasticity viscosity laser heat transfer" },
+        { "title": "LASER Explained", "channel": "Physics Wallah", "duration": "~30\u201345 min", "note": "Focused, exam-oriented explanation of laser physics (Ch.9).", "query": "Physics Wallah LASER physics explained" }
+      ]
+    },
+    {
+      "id": "PHY101P",
+      "name": "PHY101 Practicals",
+      "fullName": "Physics Lab Practicals",
+      "color": "#8e24aa",
+      "videos": [
+        { "title": "Compound Pendulum Experiment", "channel": "Ekeeda", "duration": "~20 min", "note": "Step-by-step lab procedure and viva questions.", "query": "Ekeeda compound pendulum experiment physics practical" },
+        { "title": "Newton's Rings Experiment", "channel": "Ekeeda", "duration": "~20 min", "note": "Setup, observation table and calculation walkthrough.", "query": "Ekeeda Newtons rings experiment physics practical" },
+        { "title": "Young's Modulus by Bending", "channel": "Ekeeda", "duration": "~20 min", "note": "Covers apparatus, procedure and result calculation.", "query": "Ekeeda Youngs modulus experiment physics practical" },
+        { "title": "Diffraction & Polarimeter Experiments", "channel": "LearnEngineering", "duration": "~15 min each", "note": "Visual explanations for wavelength-by-diffraction and polarimeter practicals.", "query": "LearnEngineering diffraction grating polarimeter experiment" }
+      ]
+    },
+    {
+      "id": "CHEM101",
+      "name": "CHEM101",
+      "fullName": "Chemistry I",
+      "color": "#a1665e",
+      "videos": [
+        { "title": "Chemical Equilibrium & Ionic Equilibrium", "channel": "The Organic Chemistry Tutor", "duration": "Full playlist", "note": "Clear worked examples matching Ch.3 and Ch.4.", "query": "The Organic Chemistry Tutor chemical equilibrium ionic equilibrium" },
+        { "title": "Mole Concept & Stoichiometry", "channel": "Physics Wallah", "duration": "Full playlist", "note": "Foundational mole concept lessons for Ch.1.", "query": "Physics Wallah mole concept stoichiometry chemistry" },
+        { "title": "Redox Reactions Explained", "channel": "The Organic Chemistry Tutor", "duration": "~1 hr", "note": "Balancing redox reactions, oxidation states \u2014 matches Ch.5.", "query": "The Organic Chemistry Tutor redox reactions explained" },
+        { "title": "Chemical Thermodynamics & Kinetics", "channel": "Neso Academy", "duration": "Full playlist", "note": "Covers Ch.6 Thermodynamics and Ch.7 Kinetics with derivations.", "query": "Neso Academy chemical thermodynamics kinetics full course" }
+      ]
+    }
+  ]
+}
